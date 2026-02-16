@@ -1,0 +1,18 @@
+CONTACT FORM – EMAIL SETUP
+==========================
+
+The contact form sends submissions to:
+  • joemarbragas123@gmail.com
+  • elrichtrading2006@gmail.com
+
+It uses FormSubmit.co (free, no account required).
+
+ONE-TIME ACTIVATION (required once per email):
+----------------------------------------------
+1. Have someone submit a test request from your website.
+2. FormSubmit will send an activation email to BOTH addresses.
+3. Open that email in each inbox (joemarbragas123@gmail.com and elrichtrading2006@gmail.com).
+4. Click the activation link in each email.
+5. After that, all future form submissions will be delivered to both inboxes automatically.
+
+No signup or password needed. If you don’t activate, submissions may not be delivered.
