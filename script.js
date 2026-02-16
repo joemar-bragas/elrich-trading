@@ -128,13 +128,12 @@ function initStatsCounter() {
     stats.forEach(stat => observer.observe(stat));
 }
 
-// Contact form – sends to joemarbragas123@gmail.com and elrichtrading2006@gmail.com via FormSubmit.co
+// Contact form – submits to FormSubmit.co using token (hides email address)
 function initContactForm() {
     const form = document.querySelector('.contact-form');
     if (!form) return;
 
-    const EMAIL1 = 'joemarbragas123@gmail.com';
-    const EMAIL2 = 'elrichtrading2006@gmail.com';
+    const FORMSUBMIT_TOKEN = 'eb2c55da05c400dcf072acb40ab0eb41';
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -147,27 +146,25 @@ function initContactForm() {
         const serviceSelect = form.querySelector('#service');
         const serviceText = serviceSelect.options[serviceSelect.selectedIndex].text;
         const nameVal = form.querySelector('#name').value.trim();
-        const buildBody = () => {
-            const fd = new FormData(form);
-            fd.set('service', serviceText);
-            fd.set('_subject', 'ELRICH Trading – Quote Request from ' + (nameVal || 'Website'));
-            fd.set('_template', 'table');
-            fd.set('_captcha', 'false');
-            return fd;
-        };
-
-        const submitTo = (email) =>
-            fetch('https://formsubmit.co/' + encodeURIComponent(email), {
-                method: 'POST',
-                body: buildBody(),
-                headers: { Accept: 'application/json' }
-            });
+        const fd = new FormData(form);
+        fd.set('service', serviceText);
+        fd.set('_subject', 'ELRICH Trading – Quote Request from ' + (nameVal || 'Website'));
+        fd.set('_template', 'table');
+        fd.set('_captcha', 'false');
 
         try {
-            await Promise.all([submitTo(EMAIL1), submitTo(EMAIL2)]);
-            btn.textContent = 'Request Sent!';
-            btn.style.background = '#22c55e';
-            form.reset();
+            const res = await fetch('https://formsubmit.co/' + FORMSUBMIT_TOKEN, {
+                method: 'POST',
+                body: fd,
+                headers: { Accept: 'application/json' }
+            });
+            if (res.ok) {
+                btn.textContent = 'Request Sent!';
+                btn.style.background = '#22c55e';
+                form.reset();
+            } else {
+                throw new Error('Submit failed');
+            }
         } catch (err) {
             btn.textContent = 'Failed – try again';
             btn.style.background = '#dc2626';
