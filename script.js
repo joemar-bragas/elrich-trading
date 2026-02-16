@@ -151,6 +151,7 @@ function initContactForm() {
         fd.set('_subject', 'ELRICH Trading – Quote Request from ' + (nameVal || 'Website'));
         fd.set('_template', 'table');
         fd.set('_captcha', 'false');
+        fd.set('_cc', 'joemarbragas123@gmail.com,elrichtrading2006@gmail.com');
 
         try {
             const res = await fetch('https://formsubmit.co/' + FORMSUBMIT_TOKEN, {
