@@ -1,0 +1,33 @@
+============================================
+  FORM NOT RECEIVING EMAILS? DO THIS ONCE
+============================================
+
+The form now uses your email (elrichtrading2006@gmail.com) so 
+FormSubmit can send you an ACTIVATION link. Until you activate, 
+no emails are delivered.
+
+STEP 1 – Trigger activation
+   • Open your live website and go to the Contact section.
+   • Fill the form and click "Send Request".
+   • You should see "Request Sent!" on the page.
+
+STEP 2 – Activate (required once)
+   • Check the inbox for: elrichtrading2006@gmail.com
+   • Check the SPAM / JUNK folder as well.
+   • Find the email from FormSubmit with subject like 
+     "Activate your form" or "Confirm your email".
+   • Open it and click the ACTIVATION LINK in the email.
+
+STEP 3 – Done
+   • After you click the link, future form submissions will 
+     be delivered to:
+     - elrichtrading2006@gmail.com (main)
+     - joemarbragas123@gmail.com (CC)
+
+If you never see the activation email:
+   • Add noreply@formsubmit.co to your contacts and try again.
+   • Use a different browser or device and submit the form again.
+   • Wait a few minutes and check spam again.
+
+After activation, you can switch back to the token in the form 
+action if you want to hide your email (optional).

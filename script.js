@@ -128,12 +128,12 @@ function initStatsCounter() {
     stats.forEach(stat => observer.observe(stat));
 }
 
-// Contact form – submits to FormSubmit.co using token (hides email address)
+// Contact form – FormSubmit.co (AJAX + JSON so emails deliver reliably)
 function initContactForm() {
     const form = document.querySelector('.contact-form');
     if (!form) return;
 
-    const FORMSUBMIT_TOKEN = 'eb2c55da05c400dcf072acb40ab0eb41';
+    const FORMSUBMIT_EMAIL = 'elrichtrading2006@gmail.com';
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -146,25 +146,31 @@ function initContactForm() {
         const serviceSelect = form.querySelector('#service');
         const serviceText = serviceSelect.options[serviceSelect.selectedIndex].text;
         const nameVal = form.querySelector('#name').value.trim();
-        const fd = new FormData(form);
-        fd.set('service', serviceText);
-        fd.set('_subject', 'ELRICH Trading – Quote Request from ' + (nameVal || 'Website'));
-        fd.set('_template', 'table');
-        fd.set('_captcha', 'false');
-        fd.set('_cc', 'joemarbragas123@gmail.com,elrichtrading2006@gmail.com');
+
+        const payload = {
+            name: form.querySelector('#name').value.trim(),
+            email: form.querySelector('#email').value.trim(),
+            service: serviceText,
+            message: form.querySelector('#message').value.trim(),
+            _subject: 'ELRICH Trading – Quote Request from ' + (nameVal || 'Website'),
+            _cc: 'joemarbragas123@gmail.com',
+            _template: 'table',
+            _captcha: 'false'
+        };
 
         try {
-            const res = await fetch('https://formsubmit.co/' + FORMSUBMIT_TOKEN, {
+            const res = await fetch('https://formsubmit.co/ajax/' + FORMSUBMIT_EMAIL, {
                 method: 'POST',
-                body: fd,
-                headers: { Accept: 'application/json' }
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify(payload)
             });
-            if (res.ok) {
+            const data = await res.json();
+            if (data.success === 'true' || res.ok) {
                 btn.textContent = 'Request Sent!';
                 btn.style.background = '#22c55e';
                 form.reset();
             } else {
-                throw new Error('Submit failed');
+                throw new Error(data.message || 'Submit failed');
             }
         } catch (err) {
             btn.textContent = 'Failed – try again';
