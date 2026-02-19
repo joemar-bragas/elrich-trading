@@ -128,56 +128,55 @@ function initStatsCounter() {
     stats.forEach(stat => observer.observe(stat));
 }
 
-// Contact form – FormSubmit.co (AJAX + JSON so emails deliver reliably)
+// Contact form – Formspree (reliable delivery). Replace YOUR_FORMSPREE_ID in this file and in index.html form action.
 function initContactForm() {
     const form = document.querySelector('.contact-form');
     if (!form) return;
 
-    const FORMSUBMIT_EMAIL = 'elrichtrading2006@gmail.com';
+    var FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
+    if (FORMSPREE_ID === 'YOUR_FORMSPREE_ID') {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Form not configured yet. Add your Formspree form ID – see FORMSPREE_SETUP.txt');
+        });
+        return;
+    }
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const btn = form.querySelector('button[type="submit"]');
-        const originalText = btn.textContent;
+        var btn = form.querySelector('button[type="submit"]');
+        var originalText = btn.textContent;
         btn.textContent = 'Sending...';
         btn.disabled = true;
 
-        const serviceSelect = form.querySelector('#service');
-        const serviceText = serviceSelect.options[serviceSelect.selectedIndex].text;
-        const nameVal = form.querySelector('#name').value.trim();
-
-        const payload = {
-            name: form.querySelector('#name').value.trim(),
-            email: form.querySelector('#email').value.trim(),
-            service: serviceText,
-            message: form.querySelector('#message').value.trim(),
-            _subject: 'ELRICH Trading – Quote Request from ' + (nameVal || 'Website'),
-            _cc: 'joemarbragas123@gmail.com',
-            _template: 'table',
-            _captcha: 'false'
-        };
+        var serviceSelect = form.querySelector('#service');
+        var serviceText = serviceSelect.options[serviceSelect.selectedIndex].text;
+        var nameVal = form.querySelector('#name').value.trim();
+        var formData = new FormData(form);
+        formData.set('service', serviceText);
+        formData.set('_subject', 'ELRICH Trading – Quote Request from ' + (nameVal || 'Website'));
 
         try {
-            const res = await fetch('https://formsubmit.co/ajax/' + FORMSUBMIT_EMAIL, {
+            var res = await fetch('https://formspree.io/f/' + FORMSPREE_ID, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-                body: JSON.stringify(payload)
+                body: formData,
+                headers: { Accept: 'application/json' }
             });
-            const data = await res.json();
-            if (data.success === 'true' || res.ok) {
+            var data = await res.json();
+            if (data.ok || res.ok) {
                 btn.textContent = 'Request Sent!';
                 btn.style.background = '#22c55e';
                 form.reset();
             } else {
-                throw new Error(data.message || 'Submit failed');
+                throw new Error(data.error || 'Send failed');
             }
         } catch (err) {
             btn.textContent = 'Failed – try again';
             btn.style.background = '#dc2626';
         }
 
-        setTimeout(() => {
+        setTimeout(function() {
             btn.textContent = originalText;
             btn.style.background = '';
             btn.disabled = false;

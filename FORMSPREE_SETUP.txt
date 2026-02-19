@@ -1,0 +1,56 @@
+============================================
+  GET FORM REQUESTS IN YOUR INBOX (FORMSPREE)
+============================================
+
+Do these steps ONCE. After that, every form submission will arrive
+in your email. No activation link needed.
+
+STEP 1 – Create a Formspree account
+   • Go to: https://formspree.io
+   • Click "Get Started" or "Sign Up"
+   • Sign up with your email (e.g. elrichtrading2006@gmail.com)
+
+STEP 2 – Create a new form
+   • After login, click "+ New Form"
+   • Form name: e.g. "ELRICH Trading Contact"
+   • Email: enter elrichtrading2006@gmail.com (this inbox will receive all requests)
+   • Click "Create Form"
+
+STEP 3 – Copy your Form ID
+   • On the form page you'll see an endpoint like:
+     https://formspree.io/f/xjblabqd
+   • The FORM ID is the part after /f/  →  xjblabqd
+   • Copy that short code (yours will be different)
+
+STEP 4 – Put the Form ID in your website
+   • Open script.js and find this line:
+     var FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
+   • Replace YOUR_FORMSPREE_ID with your actual ID, e.g.:
+     var FORMSPREE_ID = 'xjblabqd';
+
+   • Open index.html and find the form tag:
+     action="https://formspree.io/f/YOUR_FORMSPREE_ID"
+   • Replace YOUR_FORMSPREE_ID with the same ID, e.g.:
+     action="https://formspree.io/f/xjblabqd"
+
+STEP 5 – Save, upload your site again
+   • Save both files and redeploy your site (e.g. Vercel).
+
+STEP 6 – Test
+   • Open your live site, send a test request.
+   • Check elrichtrading2006@gmail.com – you should get the submission.
+
+-------------------------------------------
+Sending to BOTH joemarbragas123@gmail.com AND elrichtrading2006@gmail.com
+-------------------------------------------
+Formspree free plan sends to ONE email. To have both receive:
+
+Option A – Gmail forward (free)
+   • In elrichtrading2006@gmail.com: Settings → Forwarding → Add address
+   • Add joemarbragas123@gmail.com so a copy of each email is forwarded.
+
+Option B – Formspree dashboard
+   • In Formspree, form Settings may let you add a second notification email
+     (check the form’s email/notifications settings).
+
+============================================
