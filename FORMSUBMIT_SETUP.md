@@ -3,7 +3,7 @@
 ## How it works
 
 1. **The token**  
-   `eb2c55da05c400dcf072acb40ab0eb41` is a FormSubmit “invisible email” token.  
+   `b264f9cd9ad84841a7073cabf7ee3031` is a FormSubmit “invisible email” token.  
    It was sent to **one** of your addresses when that address was first used (or confirmed) with FormSubmit.  
    That address is the **primary recipient**: it receives every submission as the main “To” recipient.
 
@@ -31,8 +31,8 @@ submissions will go to both **joemarbragas123@gmail.com** and **elrichtrading200
 4. FormSubmit then sends a **token** (a string like `eb2c55da05c400dcf072acb40ab0eb41`) to that same address.
 5. You replace the old token in:
    - the form `action`:  
-     `action="https://formsubmit.co/NEW_TOKEN"`
-   - and in `script.js` where `FORMSUBMIT_TOKEN` is set.
+     `action="https://formsubmit.co/b264f9cd9ad84841a7073cabf7ee3031`
+   - and in `script.js` where `b264f9cd9ad84841a7073cabf7ee3031` is set.
 
 The token is always “linked” to the inbox that confirmed it; no separate linking step is required.
 

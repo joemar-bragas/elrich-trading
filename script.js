@@ -133,14 +133,7 @@ function initContactForm() {
     const form = document.querySelector('.contact-form');
     if (!form) return;
 
-    var FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
-    if (FORMSPREE_ID === 'YOUR_FORMSPREE_ID') {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Form not configured yet. Add your Formspree form ID – see FORMSPREE_SETUP.txt');
-        });
-        return;
-    }
+    var FORMSPREE_ID = 'mgolllby';
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -163,15 +156,23 @@ function initContactForm() {
                 body: formData,
                 headers: { Accept: 'application/json' }
             });
-            var data = await res.json();
-            if (data.ok || res.ok) {
+            var data = {};
+            try {
+                data = await res.json();
+            } catch (_) {}
+            var success = res.ok || data.ok === true || data.success === 'email sent' || (data.success && data.success.length > 0);
+            if (success) {
                 btn.textContent = 'Request Sent!';
                 btn.style.background = '#22c55e';
                 form.reset();
             } else {
-                throw new Error(data.error || 'Send failed');
+                var msg = (data.errors && data.errors.length) ? data.errors.map(function(e) { return e.message || e; }).join(', ') : (data.error || 'Send failed');
+                console.error('Formspree:', msg);
+                btn.textContent = 'Failed – try again';
+                btn.style.background = '#dc2626';
             }
         } catch (err) {
+            console.error('Form error:', err);
             btn.textContent = 'Failed – try again';
             btn.style.background = '#dc2626';
         }
