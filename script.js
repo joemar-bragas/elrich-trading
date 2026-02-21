@@ -133,7 +133,7 @@ function initContactForm() {
     const form = document.querySelector('.contact-form');
     if (!form) return;
 
-    var FORMSPREE_ID = 'mgolllby';
+    var FORMSPREE_ID = 'mjgeabgq';  // elrichtrading2006@gmail.com
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
